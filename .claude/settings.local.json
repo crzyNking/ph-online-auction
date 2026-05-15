@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem *)",
+      "Bash(npm create *)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
