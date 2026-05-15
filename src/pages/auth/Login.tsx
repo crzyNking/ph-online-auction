@@ -42,7 +42,8 @@ export default function Login() {
     setSocialLoading('google')
     try {
       await loginWithGoogle()
-      // OAuth will handle redirect
+      toast.success('Welcome!')
+      navigate('/dashboard')
     } catch (error: any) {
       toast.error(error.message || 'Google login failed')
       setSocialLoading(null)
@@ -53,6 +54,8 @@ export default function Login() {
     setSocialLoading('facebook')
     try {
       await loginWithFacebook()
+      toast.success('Welcome!')
+      navigate('/dashboard')
     } catch (error: any) {
       toast.error(error.message || 'Facebook login failed')
       setSocialLoading(null)

@@ -14,7 +14,8 @@
       "Bash(git push *)",
       "Bash(git commit *)",
       "Bash(Select-Object -First 50)",
-      "Bash(findstr tailwind *)"
+      "Bash(findstr tailwind *)",
+      "Bash(npx vercel *)"
     ]
   }
 }
