@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Search, Filter, Grid, List, SlidersHorizontal, X } from 'lucide-react'
+import { Search, Filter, Grid, List, X } from 'lucide-react'
 import { useAuctionStore } from '@/stores/auctionStore'
-import { Auction, Category } from '@/types'
 import AuctionCard from '@/components/auction/AuctionCard'
-import { formatCurrency } from '@/lib/utils'
 
 export default function Browse() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -57,42 +55,34 @@ export default function Browse() {
     setSearchParams({})
   }
 
-  const activeFiltersCount = [
-    searchQuery,
-    selectedCategory,
-    condition,
-    priceRange[0] > 0 || priceRange[1] < 1000000,
-  ].filter(Boolean).length
+  const activeFiltersCount = [searchQuery, selectedCategory, condition, priceRange[0] > 0 || priceRange[1] < 1000000].filter(Boolean).length
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-20 md:pt-24">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">Browse Auctions</h1>
-          <p className="mt-1 text-gray-600">{auctions.length} auctions found</p>
+      <div className="bg-white border-b border-gray-200 sticky top-16 md:top-20 z-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Browse Auctions</h1>
+          <p className="mt-1 text-gray-600 text-sm md:text-base">{auctions.length} auctions found</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
           {/* Filters Sidebar - Desktop */}
           <div className="hidden lg:block w-64 flex-shrink-0">
-            <div className="bg-white rounded-xl border border-gray-200 p-6 sticky top-24">
-              <div className="flex items-center justify-between mb-6">
+            <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 sticky top-36">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
                 <h3 className="font-semibold text-gray-900">Filters</h3>
                 {activeFiltersCount > 0 && (
-                  <button
-                    onClick={clearFilters}
-                    className="text-sm text-teal-600 hover:text-teal-700"
-                  >
+                  <button onClick={clearFilters} className="text-sm text-teal-600 hover:text-teal-700">
                     Clear all
                   </button>
                 )}
               </div>
 
               {/* Search */}
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
                 <form onSubmit={handleSearch}>
                   <div className="relative">
@@ -101,7 +91,7 @@ export default function Browse() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Keyword..."
-                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none"
+                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm"
                     />
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
@@ -109,12 +99,12 @@ export default function Browse() {
               </div>
 
               {/* Categories */}
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm"
                 >
                   <option value="">All Categories</option>
                   {categories.map((cat) => (
@@ -124,7 +114,7 @@ export default function Browse() {
               </div>
 
               {/* Price Range */}
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
                 <div className="flex items-center gap-2">
                   <input
@@ -132,7 +122,7 @@ export default function Browse() {
                     value={priceRange[0]}
                     onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
                     placeholder="Min"
-                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm"
                   />
                   <span className="text-gray-400">-</span>
                   <input
@@ -140,13 +130,13 @@ export default function Browse() {
                     value={priceRange[1]}
                     onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
                     placeholder="Max"
-                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm"
                   />
                 </div>
               </div>
 
               {/* Condition */}
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Condition</label>
                 <div className="space-y-2">
                   {['new', 'like_new', 'used', 'refurbished'].map((cond) => (
@@ -170,11 +160,11 @@ export default function Browse() {
           {/* Main Content */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="flex items-center justify-between mb-6 gap-4">
+            <div className="flex items-center justify-between mb-4 md:mb-6 gap-4">
               {/* Mobile Filter Button */}
               <button
                 onClick={() => setShowFilters(true)}
-                className="lg:hidden flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg"
+                className="lg:hidden flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm"
               >
                 <Filter className="w-4 h-4" />
                 <span>Filters</span>
@@ -185,12 +175,12 @@ export default function Browse() {
                 )}
               </button>
 
-              <div className="flex items-center gap-4 ml-auto">
+              <div className="flex items-center gap-3 md:gap-4 ml-auto">
                 {/* Sort */}
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none"
+                  className="px-3 md:px-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm"
                 >
                   <option value="newly_listed">Newly Listed</option>
                   <option value="ending_soon">Ending Soon</option>
@@ -203,13 +193,13 @@ export default function Browse() {
                 <div className="hidden sm:flex items-center bg-white border border-gray-200 rounded-lg">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2.5 ${viewMode === 'grid' ? 'bg-teal-50 text-teal-600' : 'text-gray-400'}`}
+                    className={`p-2 ${viewMode === 'grid' ? 'bg-teal-50 text-teal-600' : 'text-gray-400'}`}
                   >
                     <Grid className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2.5 ${viewMode === 'list' ? 'bg-teal-50 text-teal-600' : 'text-gray-400'}`}
+                    className={`p-2 ${viewMode === 'list' ? 'bg-teal-50 text-teal-600' : 'text-gray-400'}`}
                   >
                     <List className="w-4 h-4" />
                   </button>
@@ -219,7 +209,7 @@ export default function Browse() {
 
             {/* Active Filters */}
             {activeFiltersCount > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
                 {searchQuery && (
                   <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-teal-50 text-teal-700 rounded-full text-sm">
                     Search: {searchQuery}
@@ -243,7 +233,7 @@ export default function Browse() {
 
             {/* Auctions Grid */}
             {isLoading ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="bg-white rounded-xl overflow-hidden">
                     <div className="aspect-[4/3] skeleton" />
@@ -256,30 +246,20 @@ export default function Browse() {
                 ))}
               </div>
             ) : auctions.length === 0 ? (
-              <div className="text-center py-16">
-                <div className="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <div className="text-center py-12 md:py-16">
+                <div className="w-16 md:w-20 h-16 md:h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
                   <Search className="w-8 h-8 text-gray-400" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">No auctions found</h3>
-                <p className="text-gray-600 mb-6">Try adjusting your filters or search terms</p>
-                <button
-                  onClick={clearFilters}
-                  className="px-6 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
-                >
+                <p className="text-gray-600 mb-4 text-sm md:text-base">Try adjusting your filters or search terms</p>
+                <button onClick={clearFilters} className="px-6 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors text-sm md:text-base">
                   Clear Filters
                 </button>
               </div>
             ) : (
-              <div className={viewMode === 'grid'
-                ? 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6'
-                : 'space-y-4'
-              }>
+              <div className={viewMode === 'grid' ? 'grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6' : 'space-y-4'}>
                 {auctions.map((auction) => (
-                  <AuctionCard
-                    key={auction.id}
-                    auction={auction}
-                    variant={viewMode === 'list' ? 'horizontal' : 'default'}
-                  />
+                  <AuctionCard key={auction.id} auction={auction} variant={viewMode === 'list' ? 'horizontal' : 'default'} />
                 ))}
               </div>
             )}
@@ -299,28 +279,15 @@ export default function Browse() {
               </button>
             </div>
             <div className="p-4 space-y-6">
-              {/* Same filter content as sidebar */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Keyword..."
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg"
-                />
+                <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Keyword..." className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg"
-                >
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
                   <option value="">All Categories</option>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
-                  ))}
+                  {categories.map((cat) => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
                 </select>
               </div>
               <div>
@@ -328,22 +295,13 @@ export default function Browse() {
                 <div className="space-y-2">
                   {['new', 'like_new', 'used', 'refurbished'].map((cond) => (
                     <label key={cond} className="flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="condition-mobile"
-                        value={cond}
-                        checked={condition === cond}
-                        onChange={(e) => setCondition(e.target.value)}
-                      />
+                      <input type="radio" name="condition-mobile" value={cond} checked={condition === cond} onChange={(e) => setCondition(e.target.value)} />
                       <span className="text-sm capitalize">{cond.replace('_', ' ')}</span>
                     </label>
                   ))}
                 </div>
               </div>
-              <button
-                onClick={() => setShowFilters(false)}
-                className="w-full py-3 bg-teal-600 text-white font-semibold rounded-xl"
-              >
+              <button onClick={() => setShowFilters(false)} className="w-full py-3 bg-teal-600 text-white font-semibold rounded-xl">
                 Apply Filters
               </button>
             </div>
