@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About */}
           <div>
@@ -14,7 +14,7 @@ export default function Footer() {
               </div>
               <span className="text-xl font-bold">PH Online Auction</span>
             </div>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-400 mb-4 text-sm">
               The Philippines' premier online auction marketplace. Buy and sell items safely and securely.
             </p>
             <div className="flex gap-4">
@@ -37,26 +37,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li>
-                <Link to="/browse" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Browse Auctions
-                </Link>
-              </li>
-              <li>
-                <Link to="/categories" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Categories
-                </Link>
-              </li>
-              <li>
-                <Link to="/how-it-works" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/create-auction" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Sell an Item
-                </Link>
-              </li>
+              <li><Link to="/browse" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Browse Auctions</Link></li>
+              <li><Link to="/categories" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Categories</Link></li>
+              <li><Link to="/how-it-works" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">How It Works</Link></li>
+              <li><Link to="/dashboard/create-auction" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Sell an Item</Link></li>
             </ul>
           </div>
 
@@ -64,26 +48,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
-              <li>
-                <Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Safety Tips
-                </Link>
-              </li>
-              <li>
-                <Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Dispute Resolution
-                </Link>
-              </li>
-              <li>
-                <Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors">
-                  Report a Problem
-                </Link>
-              </li>
+              <li><Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Help Center</Link></li>
+              <li><Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Safety Tips</Link></li>
+              <li><Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Dispute Resolution</Link></li>
+              <li><Link to="#" className="text-gray-400 hover:text-teal-400 transition-colors text-sm">Report a Problem</Link></li>
             </ul>
           </div>
 
@@ -91,16 +59,16 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-gray-400">
-                <MapPin className="w-5 h-5 text-teal-400" />
+              <li className="flex items-center gap-3 text-gray-400 text-sm">
+                <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0" />
                 <span>Manila, Philippines</span>
               </li>
-              <li className="flex items-center gap-3 text-gray-400">
-                <Mail className="w-5 h-5 text-teal-400" />
+              <li className="flex items-center gap-3 text-gray-400 text-sm">
+                <Mail className="w-4 h-4 text-teal-400 flex-shrink-0" />
                 <span>support@phauction.com</span>
               </li>
-              <li className="flex items-center gap-3 text-gray-400">
-                <Phone className="w-5 h-5 text-teal-400" />
+              <li className="flex items-center gap-3 text-gray-400 text-sm">
+                <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
                 <span>+63 900 123 4567</span>
               </li>
             </ul>
@@ -108,21 +76,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
               © 2026 PH Online Auction. All rights reserved.
             </p>
-            <div className="flex gap-6">
-              <Link to="#" className="text-gray-400 hover:text-teal-400 text-sm">
-                Terms of Service
-              </Link>
-              <Link to="#" className="text-gray-400 hover:text-teal-400 text-sm">
-                Privacy Policy
-              </Link>
-              <Link to="#" className="text-gray-400 hover:text-teal-400 text-sm">
-                Cookie Policy
-              </Link>
+            <div className="flex gap-4 md:gap-6">
+              <Link to="#" className="text-gray-400 hover:text-teal-400 text-sm">Terms of Service</Link>
+              <Link to="#" className="text-gray-400 hover:text-teal-400 text-sm">Privacy Policy</Link>
+              <Link to="#" className="text-gray-400 hover:text-teal-400 text-sm">Cookie Policy</Link>
             </div>
           </div>
         </div>

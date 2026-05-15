@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Search, Menu, X, User, LogOut, Heart, ShoppingBag, Settings, ChevronDown } from 'lucide-react'
+import { Search, Menu, X, User, LogOut, Heart, ShoppingBag, Settings, ChevronDown, Package } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
-import { useAuctionStore } from '@/stores/auctionStore'
 import clsx from 'clsx'
 
 export default function Header() {
@@ -12,7 +11,6 @@ export default function Header() {
   const navigate = useNavigate()
 
   const { user, isAuthenticated, logout } = useAuthStore()
-  const { categories } = useAuctionStore()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,16 +19,10 @@ export default function Header() {
     }
   }
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Browse', path: '/browse' },
-    { name: 'Categories', path: '/categories' },
-    { name: 'How It Works', path: '/how-it-works' },
-  ]
-
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top bar */}
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
@@ -43,30 +35,33 @@ export default function Header() {
           </Link>
 
           {/* Search Bar - Desktop */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xl mx-8">
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xl mx-4 lg:mx-8">
             <div className="relative w-full">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search auctions..."
-                className="w-full pl-12 pr-4 py-3 bg-gray-100 border border-transparent rounded-xl focus:bg-white focus:border-teal-500 focus:outline-none transition-all"
+                className="w-full pl-12 pr-4 py-3 bg-gray-100 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all"
               />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             </div>
           </form>
 
           {/* Navigation - Desktop */}
-          <nav className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="text-gray-600 hover:text-teal-600 font-medium transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <nav className="hidden lg:flex items-center gap-4">
+            <Link to="/" className="text-gray-600 hover:text-teal-600 font-medium transition-colors">
+              Home
+            </Link>
+            <Link to="/browse" className="text-gray-600 hover:text-teal-600 font-medium transition-colors">
+              Browse
+            </Link>
+            <Link to="/categories" className="text-gray-600 hover:text-teal-600 font-medium transition-colors">
+              Categories
+            </Link>
+            <Link to="/how-it-works" className="text-gray-600 hover:text-teal-600 font-medium transition-colors">
+              How It Works
+            </Link>
 
             {isAuthenticated ? (
               <div className="relative">
@@ -87,24 +82,19 @@ export default function Header() {
 
                 {isProfileOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 animate-fade-in">
-                    <Link
-                      to="/dashboard"
-                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50"
-                    >
+                    <Link to="/dashboard" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
                       <ShoppingBag className="w-4 h-4" />
                       Dashboard
                     </Link>
-                    <Link
-                      to="/dashboard/watchlist"
-                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50"
-                    >
+                    <Link to="/dashboard/create-auction" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                      <Package className="w-4 h-4" />
+                      Sell Item
+                    </Link>
+                    <Link to="/dashboard/watchlist" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
                       <Heart className="w-4 h-4" />
                       Watchlist
                     </Link>
-                    <Link
-                      to="/dashboard/settings"
-                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50"
-                    >
+                    <Link to="/dashboard/settings" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
                       <Settings className="w-4 h-4" />
                       Settings
                     </Link>
@@ -124,10 +114,7 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <Link
-                  to="/login"
-                  className="px-4 py-2 text-gray-700 font-medium hover:text-teal-600"
-                >
+                <Link to="/login" className="px-4 py-2 text-gray-700 font-medium hover:text-teal-600">
                   Login
                 </Link>
                 <Link
@@ -157,7 +144,7 @@ export default function Header() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search auctions..."
-              className="w-full pl-12 pr-4 py-2.5 bg-gray-100 border border-transparent rounded-xl focus:bg-white focus:border-teal-500 focus:outline-none"
+              className="w-full pl-12 pr-4 py-2.5 bg-gray-100 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
             />
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           </div>
@@ -168,55 +155,37 @@ export default function Header() {
       {isMenuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 py-4 animate-fade-in">
           <nav className="flex flex-col px-4 gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 font-medium py-2 hover:text-teal-600"
-              >
-                {link.name}
-              </Link>
-            ))}
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-gray-700 font-medium py-2 hover:text-teal-600">
+              Home
+            </Link>
+            <Link to="/browse" onClick={() => setIsMenuOpen(false)} className="text-gray-700 font-medium py-2 hover:text-teal-600">
+              Browse
+            </Link>
+            <Link to="/categories" onClick={() => setIsMenuOpen(false)} className="text-gray-700 font-medium py-2 hover:text-teal-600">
+              Categories
+            </Link>
+            <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)} className="text-gray-700 font-medium py-2 hover:text-teal-600">
+              How It Works
+            </Link>
             <hr className="border-gray-200" />
             {isAuthenticated ? (
               <>
-                <Link
-                  to="/dashboard"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-700 font-medium py-2 hover:text-teal-600"
-                >
+                <Link to="/dashboard" onClick={() => setIsMenuOpen(false)} className="text-gray-700 font-medium py-2 hover:text-teal-600">
                   Dashboard
                 </Link>
-                <Link
-                  to="/dashboard/create-auction"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-700 font-medium py-2 hover:text-teal-600"
-                >
+                <Link to="/dashboard/create-auction" onClick={() => setIsMenuOpen(false)} className="text-gray-700 font-medium py-2 hover:text-teal-600">
                   Sell an Item
                 </Link>
-                <button
-                  onClick={() => {
-                    logout()
-                    setIsMenuOpen(false)
-                  }}
-                  className="text-red-600 font-medium py-2 text-left"
-                >
+                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="text-red-600 font-medium py-2 text-left">
                   Logout
                 </button>
               </>
             ) : (
               <div className="flex flex-col gap-3">
-                <Link
-                  to="/login"
-                  className="px-4 py-2 text-center border border-gray-300 rounded-lg font-medium"
-                >
+                <Link to="/login" className="px-4 py-2 text-center border border-gray-300 rounded-lg font-medium">
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="px-4 py-2 text-center bg-teal-600 text-white font-medium rounded-lg"
-                >
+                <Link to="/register" className="px-4 py-2 text-center bg-teal-600 text-white font-medium rounded-lg">
                   Sign Up
                 </Link>
               </div>

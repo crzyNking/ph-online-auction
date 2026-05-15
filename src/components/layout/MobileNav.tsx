@@ -17,7 +17,7 @@ export default function MobileNav() {
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe">
-      <div className="flex items-center justify-around h-16">
+      <div className="flex items-center justify-around h-14">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path
           const Icon = item.icon
@@ -32,7 +32,7 @@ export default function MobileNav() {
               )}
             >
               <Icon className={clsx("w-5 h-5", isActive && "fill-teal-600")} />
-              <span className="text-xs mt-1 font-medium">{item.name}</span>
+              <span className="text-xs mt-0.5 font-medium">{item.name}</span>
             </Link>
           )
         })}
