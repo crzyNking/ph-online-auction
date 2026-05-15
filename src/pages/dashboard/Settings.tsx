@@ -16,29 +16,29 @@ export default function Settings() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 pt-20 md:pt-24 py-6 md:py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-          <p className="text-gray-600">Manage your account preferences</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Settings</h1>
+          <p className="text-gray-600 text-sm md:text-base">Manage your account preferences</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8">
           {/* Sidebar */}
-          <div className="md:w-56 flex-shrink-0">
+          <div className="md:w-52 lg:w-56 flex-shrink-0">
             <nav className="space-y-1">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={clsx(
-                    'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors text-left',
+                    'w-full flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 rounded-xl transition-colors text-left text-sm',
                     activeTab === tab.id
                       ? 'bg-teal-50 text-teal-700'
                       : 'text-gray-600 hover:bg-gray-100'
                   )}
                 >
-                  <tab.icon className="w-5 h-5" />
+                  <tab.icon className="w-4 md:w-5 h-4 md:h-5" />
                   <span className="font-medium">{tab.name}</span>
                 </button>
               ))}
@@ -47,9 +47,9 @@ export default function Settings() {
                   logout()
                   toast.success('Logged out successfully')
                 }}
-                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors text-left"
+                className="w-full flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors text-left text-sm"
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="w-4 md:w-5 h-4 md:h-5" />
                 <span className="font-medium">Logout</span>
               </button>
             </nav>
@@ -57,25 +57,25 @@ export default function Settings() {
 
           {/* Content */}
           <div className="flex-1">
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
               {activeTab === 'account' && (
-                <div className="space-y-6">
-                  <h2 className="text-lg font-semibold text-gray-900">Account Settings</h2>
+                <div className="space-y-4 md:space-y-6">
+                  <h2 className="text-base md:text-lg font-semibold text-gray-900">Account Settings</h2>
                   <div>
                     <label className="flex items-center gap-3 cursor-pointer">
-                      <input type="checkbox" className="w-5 h-5 rounded text-teal-600" defaultChecked />
+                      <input type="checkbox" className="w-4 md:w-5 h-4 md:h-5 rounded text-teal-600" defaultChecked />
                       <div>
-                        <p className="font-medium text-gray-900">Public Profile</p>
-                        <p className="text-sm text-gray-500">Allow others to see your profile</p>
+                        <p className="font-medium text-gray-900 text-sm md:text-base">Public Profile</p>
+                        <p className="text-xs md:text-sm text-gray-500">Allow others to see your profile</p>
                       </div>
                     </label>
                   </div>
                   <div>
                     <label className="flex items-center gap-3 cursor-pointer">
-                      <input type="checkbox" className="w-5 h-5 rounded text-teal-600" defaultChecked />
+                      <input type="checkbox" className="w-4 md:w-5 h-4 md:h-5 rounded text-teal-600" defaultChecked />
                       <div>
-                        <p className="font-medium text-gray-900">Show Email</p>
-                        <p className="text-sm text-gray-500">Display your email on your profile</p>
+                        <p className="font-medium text-gray-900 text-sm md:text-base">Show Email</p>
+                        <p className="text-xs md:text-sm text-gray-500">Display your email on your profile</p>
                       </div>
                     </label>
                   </div>
@@ -83,8 +83,8 @@ export default function Settings() {
               )}
 
               {activeTab === 'notifications' && (
-                <div className="space-y-6">
-                  <h2 className="text-lg font-semibold text-gray-900">Notification Preferences</h2>
+                <div className="space-y-3 md:space-y-4">
+                  <h2 className="text-base md:text-lg font-semibold text-gray-900">Notification Preferences</h2>
                   {[
                     { label: 'New bids on my auctions', desc: 'When someone places a bid' },
                     { label: 'Outbid alerts', desc: 'When someone outbids you' },
@@ -92,14 +92,14 @@ export default function Settings() {
                     { label: 'Messages', desc: 'New messages from other users' },
                     { label: 'Weekly summary', desc: 'Weekly digest of your activity' },
                   ].map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
+                    <div key={idx} className="flex items-center justify-between py-2 md:py-3 border-b border-gray-100 last:border-0">
                       <div>
-                        <p className="font-medium text-gray-900">{item.label}</p>
-                        <p className="text-sm text-gray-500">{item.desc}</p>
+                        <p className="font-medium text-gray-900 text-sm md:text-base">{item.label}</p>
+                        <p className="text-xs md:text-sm text-gray-500">{item.desc}</p>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked={idx < 4} />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-600"></div>
+                        <div className="w-10 md:w-11 h-5 md:h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 md:after:h-5 after:w-4 md:after:w-5 after:transition-all peer-checked:bg-teal-600"></div>
                       </label>
                     </div>
                   ))}
@@ -107,15 +107,15 @@ export default function Settings() {
               )}
 
               {activeTab === 'security' && (
-                <div className="space-y-6">
-                  <h2 className="text-lg font-semibold text-gray-900">Security</h2>
-                  <button className="w-full py-3 border border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors text-left px-4">
+                <div className="space-y-3 md:space-y-4">
+                  <h2 className="text-base md:text-lg font-semibold text-gray-900">Security</h2>
+                  <button className="w-full py-2.5 md:py-3 border border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors text-left px-3 md:px-4 text-sm">
                     Change Password
                   </button>
-                  <button className="w-full py-3 border border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors text-left px-4">
+                  <button className="w-full py-2.5 md:py-3 border border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors text-left px-3 md:px-4 text-sm">
                     Enable Two-Factor Authentication
                   </button>
-                  <button className="w-full py-3 border border-red-200 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-colors text-left px-4 flex items-center gap-2">
+                  <button className="w-full py-2.5 md:py-3 border border-red-200 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-colors text-left px-3 md:px-4 flex items-center gap-2 text-sm">
                     <Trash2 className="w-4 h-4" />
                     Delete Account
                   </button>
@@ -123,21 +123,21 @@ export default function Settings() {
               )}
 
               {activeTab === 'payment' && (
-                <div className="space-y-6">
-                  <h2 className="text-lg font-semibold text-gray-900">Payment Methods</h2>
-                  <div className="p-4 border border-gray-200 rounded-xl">
+                <div className="space-y-3 md:space-y-4">
+                  <h2 className="text-base md:text-lg font-semibold text-gray-900">Payment Methods</h2>
+                  <div className="p-3 md:p-4 border border-gray-200 rounded-xl">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded" />
+                      <div className="flex items-center gap-2 md:gap-3">
+                        <div className="w-8 md:w-10 h-5 md:h-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded" />
                         <div>
-                          <p className="font-medium text-gray-900">GCash</p>
-                          <p className="text-sm text-gray-500">Connected</p>
+                          <p className="font-medium text-gray-900 text-sm md:text-base">GCash</p>
+                          <p className="text-xs md:text-sm text-gray-500">Connected</p>
                         </div>
                       </div>
-                      <button className="text-teal-600 font-medium hover:underline">Disconnect</button>
+                      <button className="text-teal-600 font-medium hover:underline text-sm">Disconnect</button>
                     </div>
                   </div>
-                  <button className="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl font-medium text-gray-500 hover:border-teal-500 hover:text-teal-600 transition-colors">
+                  <button className="w-full py-2.5 md:py-3 border-2 border-dashed border-gray-300 rounded-xl font-medium text-gray-500 hover:border-teal-500 hover:text-teal-600 transition-colors text-sm">
                     + Add Payment Method
                   </button>
                 </div>

@@ -76,47 +76,47 @@ export default function CreateAuction() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 pt-20 md:pt-24 py-6 md:py-8">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Create New Auction</h1>
-          <p className="text-gray-600">List your item for auction</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Create New Auction</h1>
+          <p className="text-gray-600 text-sm md:text-base">List your item for auction</p>
         </div>
 
         {/* Progress Steps */}
-        <div className="flex items-center justify-between mb-8">
-          {[1, 2, 3].map((s) => (
-            <div key={s} className="flex items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+        <div className="flex items-center justify-between mb-6 md:mb-8">
+          {[1, 2].map((s) => (
+            <div key={s} className="flex items-center flex-1">
+              <div className={`w-8 md:w-10 h-8 md:h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                 step >= s ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-500'
               }`}>
                 {s}
               </div>
-              {s < 3 && (
-                <div className={`w-20 h-1 mx-2 ${step > s ? 'bg-teal-600' : 'bg-gray-200'}`} />
+              {s < 2 && (
+                <div className={`flex-1 h-0.5 mx-2 md:mx-3 ${step > s ? 'bg-teal-600' : 'bg-gray-200'}`} />
               )}
             </div>
           ))}
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl border border-gray-200 p-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
           {step === 1 && (
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900">Basic Information</h2>
+            <div className="space-y-4 md:space-y-6">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900">Basic Information</h2>
 
               {/* Images */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Photos (up to 8)</label>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-3">
                   {images.map((img, idx) => (
-                    <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-gray-200">
+                    <div key={idx} className="relative aspect-square rounded-lg md:rounded-xl overflow-hidden border border-gray-200">
                       <img src={img} alt="" className="w-full h-full object-cover" />
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(idx)}
-                        className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center"
+                        className="absolute top-1 right-1 w-5 md:w-6 h-5 md:h-6 bg-red-500 text-white rounded-full flex items-center justify-center"
                       >
-                        <X className="w-3 h-3" />
+                        <X className="w-3 md:w-4 h-3 md:h-4" />
                       </button>
                     </div>
                   ))}
@@ -124,9 +124,9 @@ export default function CreateAuction() {
                     <button
                       type="button"
                       onClick={handleAddImage}
-                      className="aspect-square rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:border-teal-500 hover:text-teal-600 transition-colors"
+                      className="aspect-square rounded-lg md:rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:border-teal-500 hover:text-teal-600 transition-colors"
                     >
-                      <Plus className="w-6 h-6" />
+                      <Plus className="w-5 md:w-6 h-5 md:h-6" />
                       <span className="text-xs mt-1">Add</span>
                     </button>
                   )}
@@ -137,7 +137,7 @@ export default function CreateAuction() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
                 <input
                   {...register('title')}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                   placeholder="What are you selling?"
                 />
                 {errors.title && <p className="text-sm text-red-500 mt-1">{errors.title.message}</p>}
@@ -147,19 +147,19 @@ export default function CreateAuction() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
                 <textarea
                   {...register('description')}
-                  rows={5}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                  rows={4}
+                  className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                   placeholder="Describe your item in detail..."
                 />
                 {errors.description && <p className="text-sm text-red-500 mt-1">{errors.description.message}</p>}
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-5">
+              <div className="grid sm:grid-cols-2 gap-3 md:gap-5">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                   <select
                     {...register('category_id')}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                    className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                   >
                     <option value="">Select category</option>
                     {categories.map((cat) => (
@@ -172,7 +172,7 @@ export default function CreateAuction() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Condition</label>
                   <select
                     {...register('condition')}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                    className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                   >
                     <option value="">Select condition</option>
                     <option value="new">Brand New</option>
@@ -187,7 +187,7 @@ export default function CreateAuction() {
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="w-full py-3 bg-teal-600 text-white font-semibold rounded-xl hover:bg-teal-700 transition-colors"
+                className="w-full py-2.5 md:py-3 bg-teal-600 text-white font-semibold rounded-xl hover:bg-teal-700 transition-colors text-sm"
               >
                 Continue to Pricing
               </button>
@@ -195,16 +195,16 @@ export default function CreateAuction() {
           )}
 
           {step === 2 && (
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900">Pricing & Duration</h2>
+            <div className="space-y-4 md:space-y-6">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900">Pricing & Duration</h2>
 
-              <div className="grid sm:grid-cols-2 gap-5">
+              <div className="grid sm:grid-cols-2 gap-3 md:gap-5">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Starting Price (₱)</label>
                   <input
                     type="number"
                     {...register('starting_price', { valueAsNumber: true })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                    className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                     placeholder="0"
                   />
                   {errors.starting_price && <p className="text-sm text-red-500 mt-1">{errors.starting_price.message}</p>}
@@ -214,7 +214,7 @@ export default function CreateAuction() {
                   <input
                     type="number"
                     {...register('buy_now_price', { valueAsNumber: true })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                    className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                     placeholder="Optional"
                   />
                 </div>
@@ -222,7 +222,7 @@ export default function CreateAuction() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Duration (days)</label>
-                <div className="flex gap-3">
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                   {[1, 3, 5, 7, 14, 30].map((d) => (
                     <button
                       key={d}
@@ -231,7 +231,7 @@ export default function CreateAuction() {
                         const field = document.getElementById('duration_days') as HTMLInputElement
                         field.value = d.toString()
                       }}
-                      className="flex-1 py-3 border border-gray-200 rounded-xl hover:border-teal-500 transition-colors"
+                      className="py-2 md:py-3 border border-gray-200 rounded-xl hover:border-teal-500 transition-colors text-sm"
                     >
                       {d}
                     </button>
@@ -244,23 +244,23 @@ export default function CreateAuction() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
                 <input
                   {...register('location')}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                  className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none text-sm"
                   placeholder="City, Province"
                 />
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-2 md:gap-3">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="flex-1 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+                  className="flex-1 py-2.5 md:py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-sm"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 py-3 bg-teal-600 text-white font-semibold rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-50"
+                  className="flex-1 py-2.5 md:py-3 bg-teal-600 text-white font-semibold rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-50 text-sm"
                 >
                   {isSubmitting ? 'Creating...' : 'Publish Auction'}
                 </button>

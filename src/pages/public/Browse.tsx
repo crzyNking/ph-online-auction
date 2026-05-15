@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Search, Filter, Grid, List, X } from 'lucide-react'
 import { useAuctionStore } from '@/stores/auctionStore'
@@ -16,14 +16,12 @@ export default function Browse() {
   const [sortBy, setSortBy] = useState<string>('newly_listed')
   const [condition, setCondition] = useState<string>('')
 
+  // Load initial data once
   useEffect(() => {
     fetchCategories()
-    fetchAuctions({
-      search: searchParams.get('search') || undefined,
-      category: searchParams.get('category') || undefined,
-    })
-  }, [searchParams])
+  }, [fetchCategories])
 
+  // Fetch auctions with filters
   useEffect(() => {
     fetchAuctions({
       search: searchQuery || undefined,
@@ -31,9 +29,17 @@ export default function Browse() {
       minPrice: priceRange[0] > 0 ? priceRange[0] : undefined,
       maxPrice: priceRange[1] < 1000000 ? priceRange[1] : undefined,
       condition: condition || undefined,
-      sortBy: sortBy as any,
+      sortBy: sortBy as 'ending_soon' | 'newly_listed' | 'price_low' | 'price_high' | 'most_bids',
     })
-  }, [searchQuery, selectedCategory, priceRange, sortBy, condition])
+  }, [searchQuery, selectedCategory, priceRange, sortBy, condition, fetchAuctions])
+
+  // Sync with URL params
+  useEffect(() => {
+    const urlSearch = searchParams.get('search')
+    const urlCategory = searchParams.get('category')
+    if (urlSearch !== null && urlSearch !== searchQuery) setSearchQuery(urlSearch)
+    if (urlCategory !== null && urlCategory !== selectedCategory) setSelectedCategory(urlCategory)
+  }, [searchParams])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,14 +52,14 @@ export default function Browse() {
     setSearchParams(params)
   }
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setSearchQuery('')
     setSelectedCategory('')
     setPriceRange([0, 1000000])
     setSortBy('newly_listed')
     setCondition('')
     setSearchParams({})
-  }
+  }, [setSearchParams])
 
   const activeFiltersCount = [searchQuery, selectedCategory, condition, priceRange[0] > 0 || priceRange[1] < 1000000].filter(Boolean).length
 

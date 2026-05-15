@@ -17,62 +17,62 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 pt-20 md:pt-24 py-6 md:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600">Manage your auction platform</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+          <p className="text-gray-600 text-sm md:text-base">Manage your auction platform</p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
           {stats.map((stat) => (
-            <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm text-gray-500">{stat.label}</span>
-                <div className={`w-10 h-10 ${stat.bg} rounded-xl flex items-center justify-center`}>
-                  <stat.icon className={`w-5 h-5 ${stat.color}`} />
+            <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
+              <div className="flex items-center justify-between mb-3 md:mb-4">
+                <span className="text-xs md:text-sm text-gray-500">{stat.label}</span>
+                <div className={`w-8 md:w-10 h-8 md:h-10 ${stat.bg} rounded-xl flex items-center justify-center`}>
+                  <stat.icon className={`w-4 md:w-5 h-4 md:h-5 ${stat.color}`} />
                 </div>
               </div>
               <div className="flex items-end justify-between">
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <span className="text-sm text-green-600 font-medium">{stat.change}</span>
+                <p className="text-xl md:text-2xl font-bold text-gray-900">{stat.value}</p>
+                <span className="text-xs md:text-sm text-green-600 font-medium">{stat.change}</span>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {/* Quick Actions */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-            <div className="grid grid-cols-2 gap-3">
-              <Link to="/admin/users" className="p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors">
-                <Users className="w-6 h-6 text-teal-600 mb-2" />
-                <p className="font-medium text-gray-900">User Management</p>
+          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-semibold text-gray-900 mb-3 md:mb-4">Quick Actions</h2>
+            <div className="grid grid-cols-2 gap-2 md:gap-3">
+              <Link to="/admin/users" className="p-3 md:p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors">
+                <Users className="w-5 md:w-6 h-5 md:h-6 text-teal-600 mb-1 md:mb-2" />
+                <p className="font-medium text-gray-900 text-sm">User Management</p>
               </Link>
-              <Link to="/admin/listings" className="p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors">
-                <Package className="w-6 h-6 text-teal-600 mb-2" />
-                <p className="font-medium text-gray-900">Listing Moderation</p>
+              <Link to="/admin/listings" className="p-3 md:p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors">
+                <Package className="w-5 md:w-6 h-5 md:h-6 text-teal-600 mb-1 md:mb-2" />
+                <p className="font-medium text-gray-900 text-sm">Listing Moderation</p>
               </Link>
-              <div className="p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors cursor-pointer">
-                <Shield className="w-6 h-6 text-teal-600 mb-2" />
-                <p className="font-medium text-gray-900">Verify Sellers</p>
+              <div className="p-3 md:p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors cursor-pointer">
+                <Shield className="w-5 md:w-6 h-5 md:h-6 text-teal-600 mb-1 md:mb-2" />
+                <p className="font-medium text-gray-900 text-sm">Verify Sellers</p>
               </div>
-              <div className="p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors cursor-pointer">
-                <AlertTriangle className="w-6 h-6 text-teal-600 mb-2" />
-                <p className="font-medium text-gray-900">Reports</p>
+              <div className="p-3 md:p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-colors cursor-pointer">
+                <AlertTriangle className="w-5 md:w-6 h-5 md:h-6 text-teal-600 mb-1 md:mb-2" />
+                <p className="font-medium text-gray-900 text-sm">Reports</p>
               </div>
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
-            <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-semibold text-gray-900 mb-3 md:mb-4">Recent Activity</h2>
+            <div className="space-y-2 md:space-y-3">
               {recentActivity.map((activity, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                <div key={idx} className="flex items-center gap-2 md:gap-3 p-2 md:p-3 bg-gray-50 rounded-xl">
+                  <div className={`w-8 md:w-10 h-8 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     activity.type === 'report' ? 'bg-red-100 text-red-600' :
                     activity.type === 'user' ? 'bg-blue-100 text-blue-600' :
                     activity.type === 'auction' ? 'bg-teal-100 text-teal-600' :

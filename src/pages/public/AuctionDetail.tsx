@@ -20,10 +20,13 @@ export default function AuctionDetail() {
 
   useEffect(() => {
     if (id) fetchAuction(id)
-  }, [id])
+  }, [id, fetchAuction])
 
+  // Update bid amount when auction changes
   useEffect(() => {
-    if (currentAuction) setBidAmount(calculateMinBid(currentAuction.current_price).toString())
+    if (currentAuction) {
+      setBidAmount(calculateMinBid(currentAuction.current_price).toString())
+    }
   }, [currentAuction])
 
   const handlePlaceBid = async () => {

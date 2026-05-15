@@ -12,14 +12,15 @@ export default function MobileNav() {
     { name: 'Browse', path: '/browse', icon: Search },
     { name: 'Sell', path: '/dashboard/create-auction', icon: PlusCircle },
     { name: 'Watchlist', path: '/dashboard/watchlist', icon: Heart },
-    { name: 'Profile', path: isAuthenticated ? '/dashboard' : '/login', icon: User },
+    { name: isAuthenticated ? 'Account' : 'Login', path: isAuthenticated ? '/dashboard' : '/login', icon: User },
   ]
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe">
-      <div className="flex items-center justify-around h-14">
+      <div className="flex items-center justify-around h-16">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path
+          const isActive = location.pathname === item.path ||
+            (item.path !== '/' && location.pathname.startsWith(item.path))
           const Icon = item.icon
 
           return (
@@ -27,12 +28,12 @@ export default function MobileNav() {
               key={item.path}
               to={item.path}
               className={clsx(
-                "flex flex-col items-center justify-center w-16 h-full transition-colors",
-                isActive ? "text-teal-600" : "text-gray-500"
+                "flex flex-col items-center justify-center flex-1 h-full transition-colors",
+                isActive ? "text-teal-600" : "text-gray-500 hover:text-teal-600"
               )}
             >
-              <Icon className={clsx("w-5 h-5", isActive && "fill-teal-600")} />
-              <span className="text-xs mt-0.5 font-medium">{item.name}</span>
+              <Icon className={clsx("w-5 h-5", isActive && "fill-current")} />
+              <span className="text-[10px] mt-0.5 font-medium">{item.name}</span>
             </Link>
           )
         })}

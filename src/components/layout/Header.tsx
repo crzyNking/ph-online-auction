@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Search, Menu, X, User, LogOut, Heart, ShoppingBag, Settings, ChevronDown, Package } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
@@ -9,14 +9,42 @@ export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
+  const profileRef = useRef<HTMLDivElement>(null)
 
   const { user, isAuthenticated, logout } = useAuthStore()
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Close mobile menu on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setIsMenuOpen(false)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
       navigate(`/browse?search=${encodeURIComponent(searchQuery)}`)
+      setSearchQuery('')
     }
+  }
+
+  const handleLogout = () => {
+    logout()
+    setIsProfileOpen(false)
+    setIsMenuOpen(false)
   }
 
   return (
@@ -81,7 +109,7 @@ export default function Header() {
                 </button>
 
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 animate-fade-in">
+                  <div ref={profileRef} className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 animate-fade-in z-50">
                     <Link to="/dashboard" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
                       <ShoppingBag className="w-4 h-4" />
                       Dashboard
@@ -100,10 +128,7 @@ export default function Header() {
                     </Link>
                     <hr className="my-2 border-gray-200" />
                     <button
-                      onClick={() => {
-                        logout()
-                        setIsProfileOpen(false)
-                      }}
+                      onClick={handleLogout}
                       className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 w-full"
                     >
                       <LogOut className="w-4 h-4" />

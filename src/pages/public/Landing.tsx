@@ -16,7 +16,7 @@ export default function Landing() {
   useEffect(() => {
     fetchFeaturedAuctions()
     fetchCategories()
-  }, [])
+  }, [fetchFeaturedAuctions, fetchCategories])
 
   useEffect(() => {
     if (isPaused || featuredAuctions.length === 0) return
