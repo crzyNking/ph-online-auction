@@ -130,9 +130,17 @@ export const useAuctionStore = create<AuctionState>((set, get) => ({
       )
       set({ auctions: updatedAuctions })
 
-      const { currentAuction } = get()
+      const { currentAuction, featuredAuctions } = get()
       if (currentAuction && currentAuction.id === auctionId) {
         set({ currentAuction: { ...currentAuction, current_price: amount, bid_count: currentAuction.bid_count + 1 } })
+      }
+      if (featuredAuctions) {
+        const updatedFeatured = featuredAuctions.map(a =>
+          a.id === auctionId
+            ? { ...a, current_price: amount, bid_count: a.bid_count + 1 }
+            : a
+        )
+        set({ featuredAuctions: updatedFeatured })
       }
     }
   },
